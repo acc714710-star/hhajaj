@@ -1,7 +1,7 @@
 import time, redis, os, json, re, requests, asyncio
 from pyrogram import Client, filters, idle, enums
 
-token = "8088177041:AAFVapm4zyZZbPDhCJaAaZObzFjQ077eqfU"
+token = "8478567517:AAGnC8yPwri7DxlMsN8E7ZZ4c1ymDE5r1Us"
 owner_id = 7668115898
 
 # وضعنا رابط الريدس من Upstash الخاص بك هنا
