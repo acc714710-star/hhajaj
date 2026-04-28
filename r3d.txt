@@ -1,5 +1,5 @@
-pyrogram==2.0.97
-tgcrypto
+https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
+tgcrypto 
 requests 
 yt_dlp
 youtube_search
