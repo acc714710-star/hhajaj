@@ -4,11 +4,16 @@ from pyrogram import Client, filters, idle, enums
 token = "8088177041:AAFVapm4zyZZbPDhCJaAaZObzFjQ077eqfU"
 owner_id = 7668115898
 
-r = redis.Redis('localhost', decode_responses=True)
+# وضعنا رابط الريدس من Upstash الخاص بك هنا
+REDIS_URL = "rediss://default:gQAAAAAAARUvAAIgcDExYmQ2MTdkNjcxYTk0YzBlYjIyZTY3ZDc2MTBlMTJkYw@working-bluebird-70959.upstash.io:6379"
 
-to_config = """
+# الاتصال بقاعدة البيانات الخارجية
+r = redis.from_url(REDIS_URL, decode_responses=True)
+
+# قمنا بتعديل كتابة ملف الكونفق عشان البلوقنز تتصل بنفس القاعدة الخارجية وما يصير خطأ localhost
+to_config = f"""
 import redis
-r = redis.Redis('localhost',decode_responses=True)
+r = redis.from_url('{REDIS_URL}', decode_responses=True)
 """
 
 print('Loading…')
@@ -53,7 +58,7 @@ if not r.get(f'{Dev_Zaid}botchannel'):
 def Find(text):
     m = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s!()\[\]{};:'\".,<>?«»“”‘’]))"
     url = re.findall(m, text)
-    return [x[0] for x in url]
+    return[x[0] for x in url]
 
 app.start()
 
