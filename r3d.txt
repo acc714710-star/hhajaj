@@ -1,3 +1,4 @@
+flask
 https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
 tgcrypto 
 requests 
