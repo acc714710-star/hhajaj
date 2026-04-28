@@ -23,7 +23,6 @@ pillow
 mutagen
 wget
 pytube
-shazamio
 pytio
 telegraph
 asyncio
