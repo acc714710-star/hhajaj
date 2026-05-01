@@ -2,3 +2,4 @@ pyTelegramBotAPI==4.20.0
 requests==2.31.0
 beautifulsoup4==4.12.3
 httpx==0.27.2
+Flask
