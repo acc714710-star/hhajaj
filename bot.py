@@ -200,7 +200,7 @@ def get_all_users():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT user_id FROM users WHERE is_banned=0")
-    users = [row[0] for row in c.fetchall()]
+    users =[row[0] for row in c.fetchall()]
     conn.close()
     return users
 
@@ -432,11 +432,11 @@ def send_welcome(message):
         markup.add(types.InlineKeyboardButton("🔐 Admin Panel", callback_data="admin_panel"))
 
     fancy_text = (
-        "<b>❍<u>𓏺 𝖠𝖡𝗎 𝖧𝖺𝖱𝗈𝖴𝗇𝖤 . 𝒃𝒐𝒕 </u>❍</b>\n\n"
-        "<b>🔋 <u>مـنـور بـوت • 𓏺 !!𝗛𝗔𝗠𝗢 (𝗦) 𝗘𝗟𝗗𝗔𝗕𝗛𝗘𝗜𝗡 ^^ . • يـحـب</u></b>\n\n"
-        "<b>🎓 <u>الـمـطـور</u>  • <a href='tg://user?id=8557165332'>𝑱𝑶𝑶</a></b>\n\n"
+        "<b>❍────── <u> بـوت الأرقـام </u> ──────❍</b>\n\n"
+        "<b>🔋 <u>أهـلاً بك عزيزي المستخدم في البوت</u></b>\n\n"
+        "<b>🎓 <u>نـوفـر لـك أرقـام لـجـمـيـع الـدول</u></b>\n\n"
         "<b>────────────────────</b>\n"
-        "<b><u>اخـتـر الــدولـة الـتـي تـريـدهـا مـن الـزر الاسـفـل</u> ⬇️</b>"
+        "<b><u>اخـتـر الــدولـة الـتـي تـريـدهـا مـن الـزر بالأسـفـل</u> ⬇️</b>"
     )
     bot.send_message(chat_id, fancy_text, parse_mode="HTML", reply_markup=markup, disable_web_page_preview=True)
 
@@ -486,7 +486,7 @@ def handle_country_selection(call):
     )
 
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("اشــتـرڪ هـنـا يـحـب🔱", url="https://t.me/DATA_MASR"))
+    markup.add(types.InlineKeyboardButton("📢 قـنـاة الـبـوت", url="https://t.me/telegram"))
     markup.row(
         types.InlineKeyboardButton("🔄 Change Numbers", callback_data=f"change_num_{country_code}_{combo_index}"),
         types.InlineKeyboardButton("🔙 Back", callback_data="back_to_countries")
@@ -529,7 +529,7 @@ def change_number(call):
     )
 
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("اشـتـرك هـنـا يـحـب🔱", url="https://t.me/DATA_MASR"))
+    markup.add(types.InlineKeyboardButton("📢 قـنـاة الـبـوت", url="https://t.me/telegram"))
     markup.row(
         types.InlineKeyboardButton("🔄 Change Numbers", callback_data=f"change_num_{country_code}_{combo_index}"),
         types.InlineKeyboardButton("🔙 Back", callback_data="back_to_countries")
@@ -537,7 +537,7 @@ def change_number(call):
 
     try:
         bot.edit_message_text(text=msg_text, chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=markup, parse_mode="HTML", disable_web_page_preview=True)
-        bot.answer_callback_query(call.id, "تـم تـغـيـر الأرقـام يـحـب💯")
+        bot.answer_callback_query(call.id, "🔄 تم تغيير الأرقام بنجاح 💯")
     except Exception as e: print(f"Error in change_number: {e}")
 
 @bot.callback_query_handler(func=lambda call: call.data == "back_to_countries")
@@ -568,11 +568,11 @@ def back_to_countries(call):
     if is_admin(call.from_user.id): markup.add(types.InlineKeyboardButton("🔐 Admin Panel", callback_data="admin_panel"))
 
     fancy_text = (
-        "<b>❍<u> 𓏺 !!𝗛𝗔𝗠𝗢 (𝗦) 𝗘𝗟𝗗𝗔𝗕𝗛𝗘𝗜𝗡 ^^ .𝒃𝒐𝒕𝒕 </u>❍</b>\n\n"
-        "<b>🔋 <u>مـنـور بـوت • !!𝗛𝗔𝗠𝗢 (𝗦) 𝗘𝗟𝗗𝗔𝗕𝗛𝗘𝗜𝗡 ^^ . • يـحـب</u></b>\n\n"
-        "<b>🎓 <u>الـمـطـور</u>  • <a href='tg://user?id=8557165332'>𝑱𝑶𝑶</a></b>\n\n"
+        "<b>❍────── <u> بـوت الأرقـام </u> ──────❍</b>\n\n"
+        "<b>🔋 <u>أهـلاً بك عزيزي المستخدم في البوت</u></b>\n\n"
+        "<b>🎓 <u>نـوفـر لـك أرقـام لـجـمـيـع الـدول</u></b>\n\n"
         "<b>────────────────────</b>\n"
-        "<b><u>اخـتـر الــدولـة الـتـي تـريـدهـا مـن الـزر الاسـفـل</u> ⬇️</b>"
+        "<b><u>اخـتـر الــدولـة الـتـي تـريـدهـا مـن الـزر بالأسـفـل</u> ⬇️</b>"
     )
     try: bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=fancy_text, parse_mode="HTML", reply_markup=markup, disable_web_page_preview=True)
     except: pass
@@ -696,7 +696,7 @@ def handle_combo_file(message):
     try:
         file_info = bot.get_file(message.document.file_id)
         content = bot.download_file(file_info.file_path).decode('utf-8')
-        lines = [line.strip() for line in content.splitlines() if line.strip()]
+        lines =[line.strip() for line in content.splitlines() if line.strip()]
         if not lines: return bot.reply_to(message, "❌ الملف فارغ!")
         first_num = clean_number(lines[0])
         country_code = next((code for code in COUNTRY_CODES if first_num.startswith(code)), None)
@@ -756,7 +756,7 @@ def get_available_numbers(country_code, combo_index=1, user_id=None):
             used_numbers.add(row[0])
     conn.close()
     
-    return [num for num in all_numbers if num not in used_numbers]
+    return[num for num in all_numbers if num not in used_numbers]
 
 def clean_number(number):
     if not number: return ""
@@ -800,7 +800,7 @@ def get_user_by_text_match(text):
             else:
                 nums_list =[str(parsed)]
         except:
-            nums_list = [str(assigned_data)]
+            nums_list =[str(assigned_data)]
             
         for number in nums_list:
             num_str = str(number).strip()
