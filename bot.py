@@ -25,10 +25,21 @@ if not BOT_TOKEN:
     raise SystemExit("❌ BOT_TOKEN must be set")
 
 # ======================
-# 🌍 رموز الدول
+# 🌍 رموز الدول (محدثة وشاملة لأكثر من 260 دولة ومنطقة ذكية)
 # ======================
 COUNTRY_CODES = {
-    "1": ("USA/Canada", "🇺🇸", "US"), "7": ("Russia", "🇷🇺", "RU"), "20": ("Egypt", "🇪🇬", "EG"),
+    # NANP (أمريكا الشمالية والكاريبي) - تم فصلها لحل مشكلة التداخل
+    "1242": ("Bahamas", "🇧🇸", "BS"), "1246": ("Barbados", "🇧🇧", "BB"), "1264": ("Anguilla", "🇦🇮", "AI"),
+    "1268": ("Antigua & Barbuda", "🇦🇬", "AG"), "1284": ("BVI", "🇻🇬", "VG"), "1340": ("USVI", "🇻🇮", "VI"),
+    "1345": ("Cayman Islands", "🇰🇾", "KY"), "1441": ("Bermuda", "🇧🇲", "BM"), "1473": ("Grenada", "🇬🇩", "GD"),
+    "1649": ("Turks & Caicos", "🇹🇨", "TC"), "1664": ("Montserrat", "🇲🇸", "MS"), "1721": ("Sint Maarten", "🇸🇽", "SX"),
+    "1758": ("St. Lucia", "🇱🇨", "LC"), "1767": ("Dominica", "🇩🇲", "DM"), "1784": ("St. Vincent", "🇻🇨", "VC"),
+    "1809": ("Dominican Rep.", "🇩🇴", "DO"), "1829": ("Dominican Rep.", "🇩🇴", "DO"), "1849": ("Dominican Rep.", "🇩🇴", "DO"),
+    "1868": ("Trinidad & Tobago", "🇹🇹", "TT"), "1876": ("Jamaica", "🇯🇲", "JM"), "1939": ("Puerto Rico", "🇵🇷", "PR"),
+    "1": ("USA/Canada", "🇺🇸/🇨🇦", "US/CA"),
+    
+    # باقي دول العالم
+    "7": ("Russia/Kazakhstan", "🇷🇺", "RU"), "20": ("Egypt", "🇪🇬", "EG"),
     "27": ("South Africa", "🇿🇦", "ZA"), "30": ("Greece", "🇬🇷", "GR"), "31": ("Netherlands", "🇳🇱", "NL"),
     "32": ("Belgium", "🇧🇪", "BE"), "33": ("France", "🇫🇷", "FR"), "34": ("Spain", "🇪🇸", "ES"),
     "36": ("Hungary", "🇭🇺", "HU"), "39": ("Italy", "🇮🇹", "IT"), "40": ("Romania", "🇷🇴", "RO"),
@@ -51,31 +62,55 @@ COUNTRY_CODES = {
     "229": ("Benin", "🇧🇯", "BJ"), "230": ("Mauritius", "🇲🇺", "MU"), "231": ("Liberia", "🇱🇷", "LR"),
     "232": ("Sierra Leone", "🇸🇱", "SL"), "233": ("Ghana", "🇬🇭", "GH"), "234": ("Nigeria", "🇳🇬", "NG"),
     "235": ("Chad", "🇹🇩", "TD"), "236": ("Central African Rep", "🇨🇫", "CF"), "237": ("Cameroon", "🇨🇲", "CM"),
-    "240": ("Equatorial Guinea", "🇬🇶", "GQ"), "241": ("Gabon", "🇬🇦", "GA"), "242": ("Congo", "🇨🇬", "CG"),
-    "243": ("DR Congo", "🇨🇩", "CD"), "244": ("Angola", "🇦🇴", "AO"), "249": ("Sudan", "🇸🇩", "SD"),
-    "250": ("Rwanda", "🇷🇼", "RW"), "251": ("Ethiopia", "🇪🇹", "ET"), "252": ("Somalia", "🇸🇴", "SO"),
-    "253": ("Djibouti", "🇩🇯", "DJ"), "254": ("Kenya", "🇰🇪", "KE"), "255": ("Tanzania", "🇹🇿", "TZ"),
-    "256": ("Uganda", "🇺🇬", "UG"), "257": ("Burundi", "🇧🇮", "BI"), "258": ("Mozambique", "🇲🇿", "MZ"),
-    "260": ("Zambia", "🇿🇲", "ZM"), "261": ("Madagascar", "🇲🇬", "MG"), "263": ("Zimbabwe", "🇿🇼", "ZW"),
-    "351": ("Portugal", "🇵🇹", "PT"), "353": ("Ireland", "🇮🇪", "IE"), "355": ("Albania", "🇦🇱", "AL"),
-    "358": ("Finland", "🇫🇮", "FI"), "359": ("Bulgaria", "🇧🇬", "BG"), "370": ("Lithuania", "🇱🇹", "LT"),
-    "371": ("Latvia", "🇱🇻", "LV"), "372": ("Estonia", "🇪🇪", "EE"), "373": ("Moldova", "🇲🇩", "MD"),
-    "374": ("Armenia", "🇦🇲", "AM"), "375": ("Belarus", "🇧🇾", "BY"), "380": ("Ukraine", "🇺🇦", "UA"),
-    "381": ("Serbia", "🇷🇸", "RS"), "385": ("Croatia", "🇭🇷", "HR"), "387": ("Bosnia", "🇧🇦", "BA"),
-    "389": ("North Macedonia", "🇲🇰", "MK"), "420": ("Czech Republic", "🇨🇿", "CZ"),
-    "421": ("Slovakia", "🇸🇰", "SK"), "502": ("Guatemala", "🇬🇹", "GT"), "503": ("El Salvador", "🇸🇻", "SV"),
-    "504": ("Honduras", "🇭🇳", "HN"), "505": ("Nicaragua", "🇳🇮", "NI"), "506": ("Costa Rica", "🇨🇷", "CR"),
-    "507": ("Panama", "🇵🇦", "PA"), "509": ("Haiti", "🇭🇹", "HT"), "591": ("Bolivia", "🇧🇴", "BO"),
-    "593": ("Ecuador", "🇪🇨", "EC"), "595": ("Paraguay", "🇵🇾", "PY"), "598": ("Uruguay", "🇺🇾", "UY"),
-    "852": ("Hong Kong", "🇭🇰", "HK"), "855": ("Cambodia", "🇰🇭", "KH"), "856": ("Laos", "🇱🇦", "LA"),
-    "961": ("Lebanon", "🇱🇧", "LB"), "962": ("Jordan", "🇯🇴", "JO"), "963": ("Syria", "🇸🇾", "SY"),
-    "964": ("Iraq", "🇮🇶", "IQ"), "965": ("Kuwait", "🇰🇼", "KW"), "966": ("Saudi Arabia", "🇸🇦", "SA"),
-    "967": ("Yemen", "🇾🇪", "YE"), "968": ("Oman", "🇴🇲", "OM"), "970": ("Palestine", "🇵🇸", "PS"),
-    "971": ("UAE", "🇦🇪", "AE"), "972": ("Israel", "🇮🇱", "IL"), "973": ("Bahrain", "🇧🇭", "BH"),
-    "974": ("Qatar", "🇶🇦", "QA"), "977": ("Nepal", "🇳🇵", "NP"), "992": ("Tajikistan", "🇹🇯", "TJ"),
-    "993": ("Turkmenistan", "🇹🇲", "TM"), "994": ("Azerbaijan", "🇦🇿", "AZ"), "995": ("Georgia", "🇬🇪", "GE"),
-    "996": ("Kyrgyzstan", "🇰🇬", "KG"), "998": ("Uzbekistan", "🇺🇿", "UZ"),
+    "238": ("Cape Verde", "🇨🇻", "CV"), "239": ("Sao Tome", "🇸🇹", "ST"), "240": ("Equatorial Guinea", "🇬🇶", "GQ"), 
+    "241": ("Gabon", "🇬🇦", "GA"), "242": ("Congo", "🇨🇬", "CG"), "243": ("DR Congo", "🇨🇩", "CD"), 
+    "244": ("Angola", "🇦🇴", "AO"), "245": ("Guinea-Bissau", "🇬🇼", "GW"), "246": ("Diego Garcia", "🇮🇴", "IO"),
+    "248": ("Seychelles", "🇸🇨", "SC"), "249": ("Sudan", "🇸🇩", "SD"), "250": ("Rwanda", "🇷🇼", "RW"), 
+    "251": ("Ethiopia", "🇪🇹", "ET"), "252": ("Somalia", "🇸🇴", "SO"), "253": ("Djibouti", "🇩🇯", "DJ"), 
+    "254": ("Kenya", "🇰🇪", "KE"), "255": ("Tanzania", "🇹🇿", "TZ"), "256": ("Uganda", "🇺🇬", "UG"), 
+    "257": ("Burundi", "🇧🇮", "BI"), "258": ("Mozambique", "🇲🇿", "MZ"), "260": ("Zambia", "🇿🇲", "ZM"), 
+    "261": ("Madagascar", "🇲🇬", "MG"), "262": ("Reunion", "🇷🇪", "RE"), "263": ("Zimbabwe", "🇿🇼", "ZW"),
+    "264": ("Namibia", "🇳🇦", "NA"), "265": ("Malawi", "🇲🇼", "MW"), "266": ("Lesotho", "🇱🇸", "LS"),
+    "267": ("Botswana", "🇧🇼", "BW"), "268": ("Eswatini", "🇸🇿", "SZ"), "269": ("Comoros", "🇰🇲", "KM"),
+    "297": ("Aruba", "🇦🇼", "AW"), "298": ("Faroe Islands", "🇫🇴", "FO"), "299": ("Greenland", "🇬🇱", "GL"),
+    "350": ("Gibraltar", "🇬🇮", "GI"), "351": ("Portugal", "🇵🇹", "PT"), "352": ("Luxembourg", "🇱🇺", "LU"),
+    "353": ("Ireland", "🇮🇪", "IE"), "354": ("Iceland", "🇮🇸", "IS"), "355": ("Albania", "🇦🇱", "AL"),
+    "356": ("Malta", "🇲🇹", "MT"), "357": ("Cyprus", "🇨🇾", "CY"), "358": ("Finland", "🇫🇮", "FI"), 
+    "359": ("Bulgaria", "🇧🇬", "BG"), "370": ("Lithuania", "🇱🇹", "LT"), "371": ("Latvia", "🇱🇻", "LV"), 
+    "372": ("Estonia", "🇪🇪", "EE"), "373": ("Moldova", "🇲🇩", "MD"), "374": ("Armenia", "🇦🇲", "AM"), 
+    "375": ("Belarus", "🇧🇾", "BY"), "376": ("Andorra", "🇦🇩", "AD"), "377": ("Monaco", "🇲🇨", "MC"),
+    "378": ("San Marino", "🇸🇲", "SM"), "380": ("Ukraine", "🇺🇦", "UA"), "381": ("Serbia", "🇷🇸", "RS"), 
+    "382": ("Montenegro", "🇲🇪", "ME"), "383": ("Kosovo", "🇽🇰", "XK"), "385": ("Croatia", "🇭🇷", "HR"), 
+    "386": ("Slovenia", "🇸🇮", "SI"), "387": ("Bosnia", "🇧🇦", "BA"), "389": ("North Macedonia", "🇲🇰", "MK"), 
+    "420": ("Czech Republic", "🇨🇿", "CZ"), "421": ("Slovakia", "🇸🇰", "SK"), "423": ("Liechtenstein", "🇱🇮", "LI"),
+    "500": ("Falkland Islands", "🇫🇰", "FK"), "501": ("Belize", "🇧🇿", "BZ"), "502": ("Guatemala", "🇬🇹", "GT"), 
+    "503": ("El Salvador", "🇸🇻", "SV"), "504": ("Honduras", "🇭🇳", "HN"), "505": ("Nicaragua", "🇳🇮", "NI"), 
+    "506": ("Costa Rica", "🇨🇷", "CR"), "507": ("Panama", "🇵🇦", "PA"), "508": ("St. Pierre", "🇵🇲", "PM"),
+    "509": ("Haiti", "🇭🇹", "HT"), "590": ("Guadeloupe", "🇬🇵", "GP"), "591": ("Bolivia", "🇧🇴", "BO"), 
+    "592": ("Guyana", "🇬🇾", "GY"), "593": ("Ecuador", "🇪🇨", "EC"), "594": ("French Guiana", "🇬🇫", "GF"),
+    "595": ("Paraguay", "🇵🇾", "PY"), "596": ("Martinique", "🇲🇶", "MQ"), "597": ("Suriname", "🇸🇷", "SR"),
+    "598": ("Uruguay", "🇺🇾", "UY"), "599": ("Curacao", "🇨🇼", "CW"), "670": ("Timor-Leste", "🇹🇱", "TL"),
+    "672": ("Norfolk Island", "🇳🇫", "NF"), "673": ("Brunei", "🇧🇳", "BN"), "674": ("Nauru", "🇳🇷", "NR"),
+    "675": ("Papua New Guinea", "🇵🇬", "PG"), "676": ("Tonga", "🇹🇴", "TO"), "677": ("Solomon Islands", "🇸🇧", "SB"),
+    "678": ("Vanuatu", "🇻🇺", "VU"), "679": ("Fiji", "🇫🇯", "FJ"), "680": ("Palau", "🇵🇼", "PW"),
+    "681": ("Wallis & Futuna", "🇼🇫", "WF"), "682": ("Cook Islands", "🇨🇰", "CK"), "683": ("Niue", "🇳🇺", "NU"),
+    "685": ("Samoa", "🇼🇸", "WS"), "686": ("Kiribati", "🇰🇮", "KI"), "687": ("New Caledonia", "🇳🇨", "NC"),
+    "688": ("Tuvalu", "🇹🇻", "TV"), "689": ("French Polynesia", "🇵🇫", "PF"), "690": ("Tokelau", "🇹🇰", "TK"),
+    "691": ("Micronesia", "🇫🇲", "FM"), "692": ("Marshall Islands", "🇲🇭", "MH"), "850": ("North Korea", "🇰🇵", "KP"),
+    "852": ("Hong Kong", "🇭🇰", "HK"), "853": ("Macau", "🇲🇴", "MO"), "855": ("Cambodia", "🇰🇭", "KH"), 
+    "856": ("Laos", "🇱🇦", "LA"), "880": ("Bangladesh", "🇧🇩", "BD"), "886": ("Taiwan", "🇹🇼", "TW"),
+    "960": ("Maldives", "🇲🇻", "MV"), "961": ("Lebanon", "🇱🇧", "LB"), "962": ("Jordan", "🇯🇴", "JO"), 
+    "963": ("Syria", "🇸🇾", "SY"), "964": ("Iraq", "🇮🇶", "IQ"), "965": ("Kuwait", "🇰🇼", "KW"), 
+    "966": ("Saudi Arabia", "🇸🇦", "SA"), "967": ("Yemen", "🇾🇪", "YE"), "968": ("Oman", "🇴🇲", "OM"), 
+    "970": ("Palestine", "🇵🇸", "PS"), "971": ("UAE", "🇦🇪", "AE"), "972": ("Israel", "🇮🇱", "IL"), 
+    "973": ("Bahrain", "🇧🇭", "BH"), "974": ("Qatar", "🇶🇦", "QA"), "975": ("Bhutan", "🇧🇹", "BT"),
+    "976": ("Mongolia", "🇲🇳", "MN"), "977": ("Nepal", "🇳🇵", "NP"), "992": ("Tajikistan", "🇹🇯", "TJ"), 
+    "993": ("Turkmenistan", "🇹🇲", "TM"), "994": ("Azerbaijan", "🇦🇿", "AZ"), "995": ("Georgia", "🇬🇪", "GE"), 
+    "996": ("Kyrgyzstan", "🇰🇬", "KG"), "998": ("Uzbekistan", "🇺🇿", "UZ")
 }
+
+# ترتيب مفاتيح الدول تنازلياً حسب الطول (لضمان الفحص الذكي)
+SORTED_COUNTRY_PREFIXES = sorted(COUNTRY_CODES.keys(), key=len, reverse=True)
 
 # ======================
 # 🧠 دوال إنشاء قاعدة البيانات
@@ -350,7 +385,7 @@ def force_sub_check(user_id):
             elif url.startswith("@"): ch = url
             else: continue
             member = bot.get_chat_member(ch, user_id)
-            if member.status not in ["member", "administrator", "creator"]: return False
+            if member.status not in["member", "administrator", "creator"]: return False
         except:
             return False 
     return True
@@ -411,7 +446,7 @@ def send_welcome(message):
 
     country_combos = {}
     for country_code, combo_index in all_combos:
-        if country_code not in country_combos: country_combos[country_code] = []
+        if country_code not in country_combos: country_combos[country_code] =[]
         country_combos[country_code].append(combo_index)
 
     if private_combo and private_combo in COUNTRY_CODES:
@@ -682,6 +717,17 @@ def del_ch(call):
     delete_force_sub_channel(ch_id)
     admin_force_sub(call)
 
+# ======================
+# ⚙️ نظام التعرف الذكي على الدول ورفع الملفات
+# ======================
+def get_country_from_number(number):
+    """نظام كشف ذكي يفحص من الكود الأطول إلى الأقصر"""
+    num = clean_number(number)
+    for code in SORTED_COUNTRY_PREFIXES:
+        if num.startswith(code):
+            return code
+    return None
+
 @bot.callback_query_handler(func=lambda call: call.data == "admin_add_combo")
 def admin_add_combo(call):
     if not is_admin(call.from_user.id): return
@@ -697,14 +743,52 @@ def handle_combo_file(message):
         file_info = bot.get_file(message.document.file_id)
         content = bot.download_file(file_info.file_path).decode('utf-8')
         lines =[line.strip() for line in content.splitlines() if line.strip()]
-        if not lines: return bot.reply_to(message, "❌ الملف فارغ!")
+        
+        if not lines: 
+            return bot.reply_to(message, "❌ الملف فارغ!")
+            
         first_num = clean_number(lines[0])
-        country_code = next((code for code in COUNTRY_CODES if first_num.startswith(code)), None)
-        if not country_code: return bot.reply_to(message, "❌ لا يمكن تحديد الدولة!")
-        save_combo(country_code, lines)
-        bot.reply_to(message, f"✅ تم حفظ الكومبو لدولة {COUNTRY_CODES[country_code][1]}\n🔢 عدد الأرقام: {len(lines)}")
+        country_code = get_country_from_number(first_num)
+        
+        if country_code:
+            # التعرف التلقائي نجح
+            save_combo(country_code, lines)
+            name, flag, _ = COUNTRY_CODES[country_code]
+            bot.reply_to(message, f"✅ تم تحديد الدولة تلقائياً وحفظ الكومبو:\nالدولة: {flag} {name}\n🔢 عدد الأرقام: {len(lines)}")
+            del user_states[message.from_user.id]
+        else:
+            # التعرف التلقائي فشل -> تشغيل نظام الطوارئ
+            user_states[message.from_user.id] = {"step": "waiting_manual_country", "lines": lines}
+            bot.reply_to(message, "⚠️ لم أتمكن من تحديد الدولة تلقائياً من الأرقام.\n\nيرجى كتابة **رمز الدولة** يدوياً ( ليتم حفظ الملف.\nأو أرسل كلمة `إلغاء` لإلغاء العملية.", parse_mode="Markdown")
+            
+    except Exception as e: 
+        bot.reply_to(message, f"❌ خطأ: {e}")
+
+@bot.message_handler(func=lambda msg: isinstance(user_states.get(msg.from_user.id), dict) and user_states[msg.from_user.id].get("step") == "waiting_manual_country")
+def handle_manual_country_code(message):
+    if message.text.strip() == "إلغاء":
+        bot.reply_to(message, "🚫 تم إلغاء رفع الملف.")
         del user_states[message.from_user.id]
-    except Exception as e: bot.reply_to(message, f"❌ خطأ: {e}")
+        return
+
+    manual_code = clean_number(message.text)
+    if not manual_code:
+        bot.reply_to(message, "❌ يرجى إرسال أرقام فقط لرمز الدولة (مثال: 967)")
+        return
+
+    data = user_states[message.from_user.id]
+    lines = data["lines"]
+
+    # إضافة الدولة مؤقتاً إذا لم تكن موجودة بقاعدة البيانات الشاملة
+    if manual_code not in COUNTRY_CODES:
+        COUNTRY_CODES[manual_code] = (f"Country +{manual_code}", "🏳️", "UN")
+
+    save_combo(manual_code, lines)
+    name, flag, _ = COUNTRY_CODES[manual_code]
+
+    bot.reply_to(message, f"✅ تم حفظ الكومبو يدوياً بنجاح:\nالدولة: {flag} {name} (+{manual_code})\n🔢 عدد الأرقام: {len(lines)}")
+    del user_states[message.from_user.id]
+
 
 @bot.callback_query_handler(func=lambda call: call.data == "admin_del_combo")
 def admin_del_combo(call):
@@ -716,6 +800,9 @@ def admin_del_combo(call):
         if country_code in COUNTRY_CODES:
             name, flag, _ = COUNTRY_CODES[country_code]
             markup.add(types.InlineKeyboardButton(f"{flag} {name} ({combo_index})", callback_data=f"del_combo_{country_code}_{combo_index}"))
+        else:
+            markup.add(types.InlineKeyboardButton(f"🏳️ +{country_code} ({combo_index})", callback_data=f"del_combo_{country_code}_{combo_index}"))
+            
     markup.add(types.InlineKeyboardButton("🔙 Back", callback_data="admin_panel"))
     bot.edit_message_text("اختر الكومبو للحذف:", call.message.chat.id, call.message.message_id, reply_markup=markup)
 
@@ -807,17 +894,15 @@ def get_user_by_text_match(text):
             if len(num_str) >= 4:
                 last_4 = num_str[-4:]
                 
-                # التحقق الذكي: هل يوجد • أو * أو مسافة قبل آخر 4 أرقام في الرسالة؟
                 if f"•{last_4}" in text or f"*{last_4}" in text or f".{last_4}" in text or f" {last_4}" in text:
                     return user_id, num_str
-                # وضع احتياطي: هل الـ 4 أرقام موجودة في النص فقط؟
                 elif last_4 in text:
                     return user_id, num_str
                     
     return None, None
 
 # ======================
-# 📥 مستمع قروب التخزين (قلب البوت الجديد)
+# 📥 مستمع قروب التخزين
 # ======================
 @bot.message_handler(func=lambda msg: str(msg.chat.id) == STORAGE_GROUP_ID)
 def handle_storage_group_message(message):
@@ -825,14 +910,11 @@ def handle_storage_group_message(message):
     if not text:
         return
         
-    # مطابقة الرسالة مع أرقام المستخدمين
     user_id, matched_number = get_user_by_text_match(text)
     
     if user_id:
-        # استخراج الكود من الرسالة
         otp_code = extract_otp(text)
         
-        # بناء زر النسخ المباشر باستخدام الانلاين والميزة الجديدة copy_text
         keyboard = {
             "inline_keyboard": [[
                     {
@@ -843,7 +925,6 @@ def handle_storage_group_message(message):
             ]
         }
         
-        # إرسال الرسالة الكاملة (بحذافيرها) للمستخدم في البوت
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
         payload = {
             "chat_id": user_id,
@@ -854,7 +935,6 @@ def handle_storage_group_message(message):
         
         try:
             requests.post(url, data=payload)
-            # تسجيل العملية في قاعدة البيانات
             log_otp(matched_number, otp_code, text, user_id)
         except Exception as e:
             print(f"❌ خطأ في الإرسال للمستخدم: {e}")
